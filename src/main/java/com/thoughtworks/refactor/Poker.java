@@ -1,33 +1,28 @@
 package com.thoughtworks.refactor;
 
-import java.util.*;
-
 public class Poker {
 
     public static final String[] CATEGORIES = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
 
     public String compareResult(String blackHands, String whiteHands) {
         String winResult = "";
-
         final Hands blackHandsObj = new Hands(blackHands);
-        int[] blackDescendingHandsNumbers = blackHandsObj.getDescendingHandsNumbers();
-        final Catetgory blackHandsCategory = blackHandsObj.getCategory();
-        int blackHandsCategoryRanking = blackHandsCategory.judgeHandsCategoryRanking();
-
-        int[] blackDistinctDescendingHandsNumbers = blackHandsObj.getDistinctDescendingHandsNumbers();
+        int[] blackDescendingHandsNumbers = blackHandsObj.getDescendingNumbers();
+        final Category blackCategory = blackHandsObj.getCategory();
+        int blackHandsCategoryRanking = blackCategory.getRanking();
+        int[] blackDistinctDescendingHandsNumbers = blackHandsObj.getDistinctDescendingNumbers();
         int[] blackRepeatNumbers = blackHandsObj.getDescendingRepeatNumbers();
         int[] blackNoRepeatNumbers = blackHandsObj.getDescendingNoRepeatNumbers();
 
         final Hands whiteHandsObj = new Hands(whiteHands);
-        int[] whiteDescendingHandsNumbers = whiteHandsObj.getDescendingHandsNumbers();
-        final Catetgory whiteHandsCategory = whiteHandsObj.getCategory();
-        int whiteHandsCategoryRanking = whiteHandsCategory.judgeHandsCategoryRanking();
-
-        int[] whiteDistinctDescendingHandsNumbers = whiteHandsObj.getDistinctDescendingHandsNumbers();
+        int[] whiteDescendingHandsNumbers = whiteHandsObj.getDescendingNumbers();
+        final Category whiteCategory = whiteHandsObj.getCategory();
+        int whiteHandsCategoryRanking = whiteCategory.getRanking();
+        int[] whiteDistinctDescendingHandsNumbers = whiteHandsObj.getDistinctDescendingNumbers();
         int[] whiteRepeatNumbers = whiteHandsObj.getDescendingRepeatNumbers();
         int[] whiteNoRepeatNumbers = whiteHandsObj.getDescendingNoRepeatNumbers();
-
         if (blackHandsCategoryRanking < whiteHandsCategoryRanking) {
+
             winResult = "black wins - " + CATEGORIES[blackHandsCategoryRanking];
         } else if (blackHandsCategoryRanking > whiteHandsCategoryRanking) {
             winResult = "white wins - " + CATEGORIES[whiteHandsCategoryRanking];

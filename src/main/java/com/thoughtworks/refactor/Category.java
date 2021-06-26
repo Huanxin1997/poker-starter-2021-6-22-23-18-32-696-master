@@ -1,23 +1,21 @@
 package com.thoughtworks.refactor;
 
-public class Catetgory {
+public class Category {
+    private final String category;
 
-    private final String catetgory;
-
-    public Catetgory(String catetgory) {
-        this.catetgory = catetgory;
+    public Category(String strType) {
+        category = strType;
     }
 
-    public String getCatetgory() {
-        return catetgory;
+    public String getCategory() {
+        return category;
     }
 
-
-    public int judgeHandsCategoryRanking() {
+    int getRanking() {
         int index = -1;
         String[] type = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
         for (int i = 0; i < 9; i++) {
-            if (type[i].equals(this.catetgory)) {
+            if (type[i].equals(getCategory())) {
                 index = i;
             }
         }
