@@ -3,11 +3,14 @@ package com.thoughtworks.refactor;
 import java.util.*;
 
 public class Poker {
+
+    public static final String[] CARD_TYPES = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
+
     public String compareResult(String blackPlayer, String whitePlayer) {
         String winResult = "";
         String blackType = judgeType(blackPlayer);
         String whiteType = judgeType(whitePlayer);
-        String[] type = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
+        String[] cardTypes = CARD_TYPES;
         int[] blackNumber = strNumber(blackPlayer);
         int[] whiteNumber = strNumber(whitePlayer);
         int blackIndex = judgeIndex(blackType);
@@ -19,9 +22,9 @@ public class Poker {
         int[] blackNoRepeat = noOrRepeatNumber(blackNumber, 1);
         int[] whiteNoRepeat = noOrRepeatNumber(whiteNumber, 1);
         if (blackIndex < whiteIndex) {
-            winResult = "black wins - " + type[blackIndex];
+            winResult = "black wins - " + cardTypes[blackIndex];
         } else if (blackIndex > whiteIndex) {
-            winResult = "white wins - " + type[whiteIndex];
+            winResult = "white wins - " + cardTypes[whiteIndex];
         } else {
             if (blackIndex == 0) { // Straight Flush
                 if (blackNumber[0] < whiteNumber[0]) {
