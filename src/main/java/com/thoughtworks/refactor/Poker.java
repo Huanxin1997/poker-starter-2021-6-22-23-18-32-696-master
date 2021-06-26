@@ -23,7 +23,7 @@ public class Poker {
         } else if (blackIndex > whiteIndex) {
             winResult = "white wins - " + type[whiteIndex];
         } else {
-            if (blackIndex == 0) { //同花顺
+            if (blackIndex == 0) { // Straight Flush
                 if (blackNumber[0] < whiteNumber[0]) {
                     String sig = intNumber(whiteNumber[0]);
                     winResult = "white wins - high card:" + sig;
@@ -33,7 +33,7 @@ public class Poker {
                 } else {
                     winResult = "tie";
                 }
-            } else if (blackIndex == 1) { //铁支
+            } else if (blackIndex == 1) { // Four Of A Kind
                 if (blackArraySort[0] < whiteArraySort[0]) {
                     String sig = intNumber(whiteArraySort[0]);
                     winResult = "white wins - high card:" + sig;
@@ -41,7 +41,7 @@ public class Poker {
                     String sig = intNumber(blackArraySort[0]);
                     winResult = "black wins - high card:" + sig;
                 }
-            } else if (blackIndex == 2) { //葫芦
+            } else if (blackIndex == 2) { // Full House
                 if (blackArraySort[0] < whiteArraySort[0]) {
                     String sig = intNumber(whiteArraySort[0]);
                     winResult = "white wins - high card:" + sig;
@@ -49,7 +49,7 @@ public class Poker {
                     String sig = intNumber(blackArraySort[0]);
                     winResult = "black wins - high card:" + sig;
                 }
-            } else if (blackIndex == 3) { //同花
+            } else if (blackIndex == 3) { // Flush
                 for (int i = 0; i < 5; i++) {
                     if (blackNumber[i] < whiteNumber[i]) {
                         String sig = intNumber(whiteNumber[i]);
@@ -63,7 +63,7 @@ public class Poker {
                         winResult = "tie";
                     }
                 }
-            } else if (blackIndex == 4) { //顺子
+            } else if (blackIndex == 4) { // Straight
                 if (blackNumber[0] < whiteNumber[0]) {
                     String sig = intNumber(whiteNumber[0]);
                     winResult = "white wins - high card:" + sig;
@@ -73,7 +73,7 @@ public class Poker {
                 } else {
                     winResult = "tie";
                 }
-            } else if (blackIndex == 5) { //三条
+            } else if (blackIndex == 5) { // Three Of A Kind
                 if (blackRepeat[0] < whiteRepeat[0]) {
                     String sig = intNumber(whiteRepeat[0]);
                     winResult = "white wins - high card:" + sig;
@@ -81,7 +81,7 @@ public class Poker {
                     String sig = intNumber(blackRepeat[0]);
                     winResult = "black wins - high card:" + sig;
                 }
-            } else if (blackIndex == 6) { //两对
+            } else if (blackIndex == 6) { // Two Pair
                 for (int i = 0; i < 2; i++) {
                     if (blackRepeat[i] < whiteRepeat[i]) {
                         String sig = intNumber(whiteRepeat[i]);
@@ -104,7 +104,7 @@ public class Poker {
                         winResult = "tie";
                     }
                 }
-            } else if (blackIndex == 7) { //对子
+            } else if (blackIndex == 7) { // One Pair
                 if (blackRepeat[0] < whiteRepeat[0]) {
                     String sig = intNumber(whiteRepeat[0]);
                     winResult = "white wins - high card:" + sig;
@@ -126,7 +126,7 @@ public class Poker {
                         }
                     }
                 }
-            } else { //散牌
+            } else { // High Card
                 for (int i = 0; i < 5; i++) {
                     if (blackNumber[i] < whiteNumber[i]) {
                         String sig = intNumber(whiteNumber[i]);
@@ -175,7 +175,8 @@ public class Poker {
         return arrayresult;
     }
 
-    //先获得数组中每个元素出现的次数，然后再进行计算出现次数大于1的和出现次数等于1的
+    // First get the number of occurrences of each element in the array,
+    // then calculate the number of occurrences greater than 1 and the number of occurrences equal to 1.
     private int[] noOrRepeatNumber(int[] number, int flag) {
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int i = 0; i < number.length; i++) {
@@ -246,7 +247,7 @@ public class Poker {
         return index;
     }
 
-    //判断是什么牌
+    // judge the type of card
     private String judgeType(String str) {
         String type = "";
         String[] strArray = str.split("");
@@ -265,34 +266,34 @@ public class Poker {
             hashSetType.add(color[i]);
         }
         if (hashSetNumber.size() == 5) {
-            if ((number[0] - number[4] == 4) && (hashSetType.size() == 1) && (hashSetNumber.size() == 5)) { //五个相邻的数字且花色一样——同花顺
+            if ((number[0] - number[4] == 4) && (hashSetType.size() == 1) && (hashSetNumber.size() == 5)) { // five adjacent numbers with same color - Straight Flush
                 type = "StraightFlush";
-            } else if (number[0] - number[4] == 4 && (hashSetNumber.size() == 5)) { //五个相邻数字——顺子
+            } else if (number[0] - number[4] == 4 && (hashSetNumber.size() == 5)) { // five adjacent numbers - Straight
                 type = "Straight";
-            } else if (hashSetType.size() == 1) { //同一花色——同花
+            } else if (hashSetType.size() == 1) { // same color - Flush
                 type = "Flush";
-            } else { //五个不相邻的数字——散牌
+            } else { // five non-adjacent numbers - High Card
                 type = "HighCard";
             }
-        } else if (hashSetNumber.size() == 4) { //一对相同，其余三个数字不同——对子
+        } else if (hashSetNumber.size() == 4) { // two numbers are one pair, the other three are different - One Pair
             type = "OnePair";
         } else if (hashSetNumber.size() == 3) {
-            if ((number[0] == number[1] && number[2] == number[3]) || (number[1] == number[2] && number[3] == number[4]) || (number[0] == number[1] && number[3] == number[4])) { //两对
+            if ((number[0] == number[1] && number[2] == number[3]) || (number[1] == number[2] && number[3] == number[4]) || (number[0] == number[1] && number[3] == number[4])) { // Two Pair
                 type = "TwoPair";
-            } else { //三个数字相同，另外两个数字不同——三条
+            } else { // three same numbers, the other two are different - Three Of A Kind
                 type = "ThreeOfAKind";
             }
         } else {
-            if (number[0] != number[1] || number[3] != number[4]) { //三个数字相同，另外两个数字相同——葫芦
+            if (number[0] != number[1] || number[3] != number[4]) { // three same numbers, the other two are a pair - Full House
                 type = "FourOfAKind";
-            } else { //四个数字相同——铁支
+            } else { // four same numbers - Four Of A Kind
                 type = "FullHouse";
             }
         }
         return type;
     }
 
-    //数字转化并将其从大到小排序
+    // Convert to numbers and sort them from largest to smallest
     private int[] strNumber(String str) {
         int[] number = new int[5];
         String[] strArray = str.split("");
