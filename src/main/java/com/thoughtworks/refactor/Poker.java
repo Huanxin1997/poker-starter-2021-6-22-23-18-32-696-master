@@ -8,18 +8,25 @@ public class Poker {
 
     public String compareResult(String blackHands, String whiteHands) {
         String winResult = "";
-        String blackHandsCategory = PokerUtil.judgeHandCategory(blackHands);
-        String whiteHandsCategory = PokerUtil.judgeHandCategory(whiteHands);
-        int[] blackDescendingHandsNumbers = PokerUtil.getDescendingHandsNumbers(blackHands);
-        int[] whiteDescendingHandsNumbers = PokerUtil.getDescendingHandsNumbers(whiteHands);
-        int blackHandsCategoryRanking = judgeHandsCategoryRanking(blackHandsCategory);
-        int whiteHandsCategoryRanking = judgeHandsCategoryRanking(whiteHandsCategory);
+
+        final Hands blackHandsObj = new Hands(blackHands);
+        int[] blackDescendingHandsNumbers = blackHandsObj.getDescendingHandsNumbers();
+        final Catetgory blackHandsCategory = blackHandsObj.getCategory();
+        int blackHandsCategoryRanking = blackHandsCategory.judgeHandsCategoryRanking();
+
         int[] blackDistinctDescendingHandsNumbers = getDistinctDescendingHandsNumbers(blackDescendingHandsNumbers);
-        int[] whiteDistinctDescendingHandsNumbers = getDistinctDescendingHandsNumbers(whiteDescendingHandsNumbers);
         int[] blackRepeatNumbers = getDescendingRepeatNumbers(blackDescendingHandsNumbers);
-        int[] whiteRepeatNumbers = getDescendingRepeatNumbers(whiteDescendingHandsNumbers);
         int[] blackNoRepeatNumbers = getDescendingNoRepeatNumbers(blackDescendingHandsNumbers);
+
+        final Hands whiteHandsObj = new Hands(whiteHands);
+        int[] whiteDescendingHandsNumbers = whiteHandsObj.getDescendingHandsNumbers();
+        final Catetgory whiteHandsCategory = whiteHandsObj.getCategory();
+        int whiteHandsCategoryRanking = whiteHandsCategory.judgeHandsCategoryRanking();
+
+        int[] whiteDistinctDescendingHandsNumbers = getDistinctDescendingHandsNumbers(whiteDescendingHandsNumbers);
+        int[] whiteRepeatNumbers = getDescendingRepeatNumbers(whiteDescendingHandsNumbers);
         int[] whiteNoRepeatNumbers = getDescendingNoRepeatNumbers(whiteDescendingHandsNumbers);
+
         if (blackHandsCategoryRanking < whiteHandsCategoryRanking) {
             winResult = "black wins - " + CATEGORIES[blackHandsCategoryRanking];
         } else if (blackHandsCategoryRanking > whiteHandsCategoryRanking) {
